@@ -35,6 +35,7 @@ int main(int argc, char *argv[], char *envp[]){
         printf("Parent exit\n");
     }
     else {
+         close(fd[1)];
          execlp("/home/vladicka/OS_security_progs/Lab2/temp_prog", "/home/vladicka/OS_security_progs/Lab2/temp_prog", des);
     }
     return 0;
