@@ -21,6 +21,7 @@ int main(int argc, char *argv[], char *envp[]){
         }
         else break;
     }
+    cout << k;
     char *arg[k];
     char *arg1[argc-k];
     for (j=0;j<k-1;j++){
