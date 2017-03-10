@@ -15,13 +15,13 @@ int main(){
         printf("Can\'t generate key\n");
         exit(-1);
     }
-    if((shmid = shmget(key, 3*sizeof(int), 0666|IPC_CREAT|IPC_EXCL)) < 0){
+    if((shmid = shmget(key, 6*sizeof(int), 0666|IPC_CREAT|IPC_EXCL)) < 0){
         if(errno != EEXIST){
             printf("Can\'t create shared memory\n");
             exit(-1);
         }
         else {
-            if((shmid = shmget(key, 3*sizeof(int), 0)) < 0){
+            if((shmid = shmget(key, 6*sizeof(int), 0)) < 0){
                 printf("Can\'t find shared memory\n");
                 exit(-1);
             }
@@ -46,7 +46,7 @@ int main(){
         array[5] += 1;
         array[0]=0;
     }
-    for(int i=0; i<1000000000; i++);
+    for(int i=0; i<1000000000; i++); // can be removed
     printf("Program 1 was spawn %d times, program 2 - %d times, total - %d times\n",
     array[3], array[4], array[5]);
     if(shmdt(array) < 0){
