@@ -15,7 +15,7 @@ int main(){
         printf("Can\'t generate key\n");
         exit(-1);
     }
-    if((shmid = shmget(key, 3*sizeof(int), 0666|IPC_CREAT|IPC_EXCL)) < 0){
+    if((shmid = shmget(key, 6*sizeof(int), 0666|IPC_CREAT|IPC_EXCL)) < 0){
         if(errno != EEXIST){
             printf("Can\'t create shared memory\n");
             exit(-1);
