@@ -8,7 +8,7 @@
 
 int main() {
     int msqid;
-    char pathname[] = "05_1a.c";
+    char pathname[] = "temp2";
     key_t key;
     int i,len;
     struct mymsgbuf{
