@@ -92,7 +92,7 @@ int main() {
             printf("Can\'t receive message from queue\n");
             exit(-1);
         }
-        cout << "Message from server: " << mybuf.content.text << "\n\n";
+        cout << "Message from server " << mybuf.content.source_pid << ": " << mybuf.content.text << "\n\n";
     }
     return 0;
 }
