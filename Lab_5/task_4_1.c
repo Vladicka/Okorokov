@@ -47,38 +47,49 @@ int main() {
         cout << curr_time << "  Message from " << mybuf.content.source_pid << " recieved.\n";
         switch (mybuf.content.query_type){
             case 1:{
-                len=116;
-                mybuf.mtype=mybuf.content.source_pid;
-                strcpy(mybuf.content.text, "Server is here!");
-                if (msgsnd(msqid, (struct msgbuf *) &mybuf, len, 0) < 0){
-                    printf("Can\'t send message to queue\n");
-                    msgctl(msqid, IPC_RMID, (struct msqid_ds *) NULL);
-                    exit(-1);
+                chpid=fork();
+                if (chpid==0){
+                    len=116;
+                    mybuf.mtype=mybuf.content.source_pid;
+                    mybuf.content.source_pid=pid;
+                    strcpy(mybuf.content.text, "Server is here!");
+                    if (msgsnd(msqid, (struct msgbuf *) &mybuf, len, 0) < 0){
+                        printf("Can\'t send message to queue\n");
+                        msgctl(msqid, IPC_RMID, (struct msqid_ds *) NULL);
+                        exit(-1);
+                    }
+                    exit(0);
                 }
                 break;
             }
             case 2:{
-                len=116;
-                mybuf.mtype=mybuf.content.source_pid;
-                strcpy(mybuf.content.text, "Baka!");
-                if (msgsnd(msqid, (struct msgbuf *) &mybuf, len, 0) < 0){
-                    printf("Can\'t send message to queue\n");
-                    msgctl(msqid, IPC_RMID, (struct msqid_ds *) NULL);
-                    exit(-1);
+                chpid=fork();
+                if (chpid==0){
+                    len=116;
+                    mybuf.mtype=mybuf.content.source_pid;
+                    mybuf.content.source_pid=pid;
+                    strcpy(mybuf.content.text, "Baka!");
+                    if (msgsnd(msqid, (struct msgbuf *) &mybuf, len, 0) < 0){
+                        printf("Can\'t send message to queue\n");
+                        msgctl(msqid, IPC_RMID, (struct msqid_ds *) NULL);
+                        exit(-1);
+                    }
+                    exit(0);
                 }
                 break;
             }
             case 3:{
-                len=116;
-                mybuf.mtype=mybuf.content.source_pid;
-                strcpy(mybuf.content.text, "This is for her, war!");
-                if (msgsnd(msqid, (struct msgbuf *) &mybuf, len, 0) < 0){
-                    printf("Can\'t send message to queue\n");
-                    msgctl(msqid, IPC_RMID, (struct msqid_ds *) NULL);
-                    exit(-1);
-                }
                 chpid=fork();
                 if (chpid==0){
+                    len=116;
+                    mybuf.mtype=mybuf.content.source_pid;
+                    mybuf.content.source_pid=pid;
+                    strcpy(mybuf.content.text, "This is for her, war!");
+                    if (msgsnd(msqid, (struct msgbuf *) &mybuf, len, 0) < 0){
+                        printf("Can\'t send message to queue\n");
+                        msgctl(msqid, IPC_RMID, (struct msqid_ds *) NULL);
+                        exit(-1);
+                    }
                     execlp("sh", "sh", "/home/vladicka/war");
                 }
                 break;
@@ -86,6 +97,7 @@ int main() {
             case 0:{
                 len=116;
                 mybuf.mtype=mybuf.content.source_pid;
+                mybuf.content.source_pid=pid;
                 strcpy(mybuf.content.text, "I'll be back!");
                 if (msgsnd(msqid, (struct msgbuf *) &mybuf, len, 0) < 0){
                     printf("Can\'t send message to queue\n");
