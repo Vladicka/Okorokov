@@ -11,7 +11,6 @@ using namespace std;
 int main(){
     DIR *curr_dir;
     struct dirent *curr_file;
-    (void)umask(0);
     if((curr_dir = opendir("/root")) < 0){
         cout << "Can't open directory.\n";
         exit(-1);
