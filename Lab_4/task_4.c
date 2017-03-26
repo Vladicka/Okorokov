@@ -9,7 +9,7 @@ using namespace std;
 int main(){
     int fd[2], result, res, semid, i;
     char msg[24];
-    char pathname[] = "temp4_1";
+    char pathname[] = "temp4";
     string prnt_msg, ch_msg, num;
     key_t sem_key;
     struct sembuf mysem;
@@ -50,9 +50,9 @@ int main(){
         }
     }
     else {
-        mysem.sem_op=-1;
-        semop(semid, &mysem, 1);
         for (i=0; i<7; i++){
+            mysem.sem_op=-1;
+            semop(semid, &mysem, 1);
             res=read(fd[0], msg, 24);
             cout << "Message №" << i+1 << " received from parent!\nMessage content: " << msg << "\n\n";
             num=i+1+'0';
@@ -62,8 +62,6 @@ int main(){
                 cout << "Can't send message\n";
                 exit(1);
             }
-            mysem.sem_op=-1;
-            semop(semid, &mysem, 1);
             mysem.sem_op=-1;
             semop(semid, &mysem, 1);
         }
